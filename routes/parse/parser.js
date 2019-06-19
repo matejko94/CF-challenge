@@ -55,11 +55,24 @@ class Parse {
 
             let urls = await page.evaluate(() => {
                 let author = document.querySelector('a.author');
-                let a = author.getElementsByTagName('span')[0].innerHTML
-                console.log(a)
-                let formattedDate = document.querySelector('span.formattedDate').innerHTML;
-                console.log(formattedDate)
-                let type = document.querySelector('a.bc-2').innerHTML;
+                let a;
+                let type;
+                let formattedDate;
+
+                if (author != null) {
+                    a = author.getElementsByTagName('span')[0].innerHTML;
+                }
+
+                if (document.querySelector('span.formattedDate') != null) {
+                    formattedDate = document.querySelector('span.formattedDate').innerHTML;
+                }
+
+                if (document.querySelector('a.bc-2') != null) {
+                    type = document.querySelector('a.bc-2').innerHTML;
+                }
+                console.log(a);
+                console.log(formattedDate);
+                console.log(type);
 
                 return {author: a, type: type, date: formattedDate}
             })
@@ -67,7 +80,6 @@ class Parse {
         } catch (e) {
             console.log(e)
             return null;
-
         }
 
     }
@@ -84,14 +96,18 @@ class Parse {
         var t = this;
         t.extractTopArticles(page).then(async function (results) {
                 //console.log(results);
-                for (var i = 0; i < 5; i++) { //TODO should be changed and chacked
-                    console.log(results[i])
-                    let data = await t.extractContentFromArticle(page, results[i])
-                    l.push(data)
-                }
-                browser.close()
+            let topArticles = 5;
+            if (results.length < 5) {
+                topArticles = results.length;
+            }
 
-                callback(l, null);
+            for (var i = 0; i < topArticles; i++) { //TODO should be changed and chacked
+                console.log(results[i])
+                let data = await t.extractContentFromArticle(page, results[i])
+                l.push(data)
+            }
+            browser.close();
+            callback(l, null);
 
             },
             function (error) {
