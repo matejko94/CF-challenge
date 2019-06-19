@@ -7,8 +7,9 @@ class Parse {
         this.url = "https://www.cnet.com/"
 
     }
-
-
+    /**
+     * Extract all articles from first page
+     * */
     extractTopArticles(page) {
         return new Promise(async (resolve, reject) => {
             try {
@@ -44,6 +45,9 @@ class Parse {
         })
     }
 
+    /**
+     * Extract content from specific article.
+     * */
     async extractContentFromArticle(page, params) {
         try {
 
@@ -69,6 +73,9 @@ class Parse {
     }
 
 
+    /**
+     * Handle parsing and put in the proper format
+     */
     async parseWebPage(callback) {
         var l = []
         const browser = await puppeteer.launch({devtools: true});
