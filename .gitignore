@@ -1,0 +1,15 @@
+# OS files
+.DS_Store
+
+# Node.js files
+/node_modules
+
+# Vim files
+.vimrc
+*.idea/
+*.swp
+# JSHint
+*/node_modules
+*/data.txt
+*.log
+.jshintrc
