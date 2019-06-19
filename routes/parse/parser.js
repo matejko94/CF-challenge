@@ -1,19 +1,20 @@
 const puppeteer = require('puppeteer');
 
+const n_articles = 5;
 
 class Parse {
 
+
     constructor() {
         this.url = "https://www.cnet.com/"
-
     }
+
     /**
      * Extract all articles from first page
      * */
     extractTopArticles(page) {
         return new Promise(async (resolve, reject) => {
             try {
-
 
                 await page.goto(this.url);
 
@@ -95,9 +96,8 @@ class Parse {
 
         var t = this;
         t.extractTopArticles(page).then(async function (results) {
-                //console.log(results);
-            let topArticles = 5;
-            if (results.length < 5) {
+            let topArticles = n_articles;
+            if (results.length < n_articles) {
                 topArticles = results.length;
             }
 
@@ -116,7 +116,6 @@ class Parse {
             })
 
     }
-
 
 }
 
