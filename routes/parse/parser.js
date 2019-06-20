@@ -57,7 +57,7 @@ class Parse {
             let urls = await page.evaluate(() => {
                 let author = document.querySelector('a.author');
                 let a;
-                let type;
+                let category;
                 let formattedDate;
 
                 if (author != null) {
@@ -69,13 +69,25 @@ class Parse {
                 }
 
                 if (document.querySelector('a.bc-2') != null) {
-                    type = document.querySelector('a.bc-2').innerHTML;
+                    category = document.querySelector('a.bc-2').innerHTML;
                 }
+
+                let tagList;
+                var array = []
+                if (document.querySelector('div.tagList') != null){
+                    tagList = document.querySelector('div.tagList')
+                    var aType = tagList.getElementsByTagName('a');
+                    if (aType != null) {
+                        for (var i = 0; i < aType.length; i++) {
+                            array.push(aType[i].innerHTML)
+                        }
+                    }
+                }
+
                 console.log(a);
                 console.log(formattedDate);
-                console.log(type);
 
-                return {author: a, type: type, date: formattedDate}
+                return {author: a, category: category, date: formattedDate, tag: array}
             })
             return Object.assign({}, params, urls);
         } catch (e) {
