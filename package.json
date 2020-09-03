@@ -6,7 +6,7 @@
     "start": "node ./bin/www"
   },
   "dependencies": {
-    "puppeteer": "^0.9.0",
+    "puppeteer": "^5.2.1",
     "dom-parser": "^0.1.6",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
